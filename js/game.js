@@ -33,5 +33,10 @@ var Game = function(gameString) {
   this.gameState = gameString || initBoard();
 };
 
+Game.prototype.toString = function() {
+
+  return this.gameState.substring(0,4) + "\n" + this.gameState.substring(4,8) + "\n" + this.gameState.substring(8,12) + "\n" + this.gameState.substring(12,16)
+};
+var newGame = new Game();
 console.log(newGame.gameState);
-console.log(newGame.gameState);
+console.log(newGame.toString());
