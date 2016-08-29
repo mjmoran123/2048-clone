@@ -144,7 +144,6 @@ Game.prototype.down = function() {
       }
     }
   }
-  console.log(col3);
   col0 = this.smash(col0);
   col1 = this.smash(col1);
   col2 = this.smash(col2);
@@ -234,7 +233,10 @@ Game.prototype.checkforLoser = function() {
   }
 }
 
-var newGame = new Game();
-console.log(newGame.toString());
-console.log(newGame.right());
-console.log(newGame.toString());
+
+
+
+// var newGame = new Game();
+// console.log(newGame.toString());
+// console.log(newGame.right());
+// console.log(newGame.toString());
