@@ -114,7 +114,7 @@ Game.prototype.up = function() {
   var randI = _.random(3);
   var randJ = _.random(3);
 
-  while(newBoardArray[randI][randJ] != 0) {
+  while(stringify(currentBoard).indexOf('0') != -1 && newBoardArray[randI][randJ] != 0) {
     randI = _.random(3);
     randJ = _.random(3);
   }
@@ -158,7 +158,7 @@ Game.prototype.down = function() {
   var randI = _.random(3);
   var randJ = _.random(3);
 
-  while(newBoardArray[randI][randJ] != 0) {
+  while(stringify(currentBoard).indexOf('0') != -1 && newBoardArray[randI][randJ] != 0) {
     randI = _.random(3);
     randJ = _.random(3);
   }
@@ -179,7 +179,7 @@ Game.prototype.left = function(array) {
   var randI = _.random(3);
   var randJ = _.random(3);
 
-  while(currentBoard[randI][randJ] != 0) {
+  while(stringify(currentBoard).indexOf('0') != -1 && currentBoard[randI][randJ] != 0) {
     randI = _.random(3);
     randJ = _.random(3);
   }
@@ -199,7 +199,7 @@ Game.prototype.right = function(array) {
   var randI = _.random(3);
   var randJ = _.random(3);
 
-  while(currentBoard[randI][randJ] != 0) {
+  while(stringify(currentBoard).indexOf('0') != -1 && currentBoard[randI][randJ] != 0) {
     randI = _.random(3);
     randJ = _.random(3);
   }
@@ -209,8 +209,8 @@ Game.prototype.right = function(array) {
   this.gameState = stringify(currentBoard);
 };
 
-var newGame = new Game();
-console.log(newGame.toString());
-console.log(newGame.right());
-console.log(newGame.toString());
-console.log(newGame.smash([0,0,2,0]));
+var g = new Game();
+// console.log(newGame.toString());
+// console.log(newGame.right());
+// console.log(newGame.toString());
+// console.log(newGame.smash([0,0,2,0]));
