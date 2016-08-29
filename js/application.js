@@ -1,14 +1,63 @@
-var game;
+var game = new Game();
+
+var generateBoard = function() {
+
+
+
+   for(var i = 0; i < 16; i++) {
+    var val;
+    if(parseInt(game.boardState[i]) == 0) {
+      val = "_"
+    } else {
+      val = Math.pow(2, game.boardState[i]);
+    };
+
+    $("#" + i.toString()).text(val);
+  }
+};
+
+var checkGameOver = function() {
+  game.checkForWinner();
+  game.checkForLoser();
+  if(game.gameState == 1) {
+  $("#gameover").text("You Win!")
+ }
+
+  if(game.gameState == -1) {
+  $("#gameover").text("You Lose!")
+ }
+}
+
+var takeTurn = function() {
+  checkGameOver();
+  generateBoard();
+  console.log(game.gameState);
+}
 
 $(document).ready(function() {
-  game = new Game();
-  console.log(game.toString());
+
+  generateBoard();
 
 
-  Mousetrap.bind('up', game.up.bind(game));
-  Mousetrap.bind('down', game.down.bind(game));
-  Mousetrap.bind('left', game.left.bind(game));
-  Mousetrap.bind('right', game.right.bind(game));
+  Mousetrap.bind('up', function(){
+    game.up();
+    takeTurn();
+  });
+  Mousetrap.bind('down', function() {
+    game.down();
+    takeTurn();
+  });
+  Mousetrap.bind('left', function() {
+    game.left();
+    takeTurn();
+  });
+  Mousetrap.bind('right', function() {
+    game.right();
+    takeTurn();
+  });
+
+
+
 
 
 });
