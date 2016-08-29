@@ -34,9 +34,36 @@ var Game = function(gameString) {
 };
 
 Game.prototype.toString = function() {
-
   return this.gameState.substring(0,4) + "\n" + this.gameState.substring(4,8) + "\n" + this.gameState.substring(8,12) + "\n" + this.gameState.substring(12,16)
 };
+
+Game.prototype.collapse = function(array) {
+  var collapsedArr = _.without(array, 0);
+
+  while(collapsedArr.length < 4) {
+    collapsedArr.push(0);
+  }
+  return collapsedArr;
+};
+
+Game.prototype.smash = function(array) {
+  array = this.collapse(array);
+
+  for(var i=0; i < 3; i++) {
+    if(array[i] == array[i + 1] && array[i] != 0) {
+      array[i] += 1;
+      array[i+1] = 0;
+      array = this.collapse(array);
+    } else {
+      array = this.collapse(array);
+    }
+    console.log(array);
+  }
+  return array
+};
+
+
+
 var newGame = new Game();
 console.log(newGame.gameState);
-console.log(newGame.toString());
+console.log(newGame.smash([0,2,4,3]));
