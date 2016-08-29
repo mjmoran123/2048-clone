@@ -119,15 +119,98 @@ Game.prototype.up = function() {
     randJ = _.random(3);
   }
 
-newBoardArray[randI][randJ] = _.random(1,2);
+  newBoardArray[randI][randJ] = _.random(1,2);
 
-this.gameState = stringify(newBoardArray);
+  this.gameState = stringify(newBoardArray);
 };
 
+Game.prototype.down = function() {
+  var currentBoard = arrayify(this.gameState);
+  var col0 = [];
+  var col1 = [];
+  var col2 = [];
+  var col3 = [];
+  for(var i = 3; i > -1; i--) {
+    for(var j = 0; j < 4; j++) {
+      if(j == 0) {
+        col0.push(currentBoard[i][j]);
+      } else if(j == 1) {
+        col1.push(currentBoard[i][j]);
+      }else if (j == 2) {
+        col2.push(currentBoard[i][j]);
+      } else if( j == 3) {
+        col3.push(currentBoard[i][j]);
+      }
+    }
+  }
+  console.log(col3);
+  col0 = this.smash(col0);
+  col1 = this.smash(col1);
+  col2 = this.smash(col2);
+  col3 = this.smash(col3);
+  newBoardArray = [];
 
+  newBoardArray[0] = [col0[3], col1[3], col2[3], col3[3]];
+  newBoardArray[1] = [col0[2], col1[2], col2[2], col3[2]];
+  newBoardArray[2] = [col0[1], col1[1], col2[1], col3[1]];
+  newBoardArray[3] = [col0[0], col1[0], col2[0], col3[0]];
+
+  var randI = _.random(3);
+  var randJ = _.random(3);
+
+  while(newBoardArray[randI][randJ] != 0) {
+    randI = _.random(3);
+    randJ = _.random(3);
+  }
+
+  newBoardArray[randI][randJ] = _.random(1,2);
+
+  this.gameState = stringify(newBoardArray);
+};
+
+Game.prototype.left = function(array) {
+  var currentBoard = arrayify(this.gameState);
+
+  currentBoard[0] = this.smash(currentBoard[0]);
+  currentBoard[1] = this.smash(currentBoard[1]);
+  currentBoard[2] = this.smash(currentBoard[2]);
+  currentBoard[3] = this.smash(currentBoard[3]);
+
+  var randI = _.random(3);
+  var randJ = _.random(3);
+
+  while(currentBoard[randI][randJ] != 0) {
+    randI = _.random(3);
+    randJ = _.random(3);
+  }
+
+  currentBoard[randI][randJ] = _.random(1,2);
+
+  this.gameState = stringify(currentBoard);
+};
+
+Game.prototype.right = function(array) {
+  var currentBoard = arrayify(this.gameState);
+  currentBoard[0] = this.smash(currentBoard[0].reverse()).reverse();
+  currentBoard[1] = this.smash(currentBoard[1].reverse()).reverse();
+  currentBoard[2] = this.smash(currentBoard[2].reverse()).reverse();
+  currentBoard[3] = this.smash(currentBoard[3].reverse()).reverse();
+
+  var randI = _.random(3);
+  var randJ = _.random(3);
+
+  while(currentBoard[randI][randJ] != 0) {
+    randI = _.random(3);
+    randJ = _.random(3);
+  }
+
+  currentBoard[randI][randJ] = _.random(1,2);
+
+  this.gameState = stringify(currentBoard);
+};
 
 var newGame = new Game();
 console.log(newGame.toString());
-console.log(newGame.up());
+console.log(newGame.right());
 console.log(newGame.toString());
 console.log(newGame.smash([0,0,2,0]));
