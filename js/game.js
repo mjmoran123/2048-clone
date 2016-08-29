@@ -49,11 +49,12 @@ var Game = function(gameString) {
      return stringify(boardArray);
   }
   //Takes in initial board state or generates random board state
-  this.gameState = gameString || initBoard();
+  this.boardState = gameString || initBoard();
+  this.gameState = 0; //gameState value of 0 = in progress, 1 = won, -1 = loss
 };
 
 Game.prototype.toString = function() {
-  return this.gameState.substring(0,4) + "\n" + this.gameState.substring(4,8) + "\n" + this.gameState.substring(8,12) + "\n" + this.gameState.substring(12,16)
+  return this.boardState.substring(0,4) + "\n" + this.boardState.substring(4,8) + "\n" + this.boardState.substring(8,12) + "\n" + this.boardState.substring(12,16)
 };
 
 Game.prototype.collapse = function(array) {
@@ -82,7 +83,7 @@ Game.prototype.smash = function(array) {
 };
 
 Game.prototype.up = function() {
-  var currentBoard = arrayify(this.gameState);
+  var currentBoard = arrayify(this.boardState);
   var col0 = [];
   var col1 = [];
   var col2 = [];
@@ -121,11 +122,11 @@ Game.prototype.up = function() {
 
   newBoardArray[randI][randJ] = _.random(1,2);
 
-  this.gameState = stringify(newBoardArray);
+  this.boardState = stringify(newBoardArray);
 };
 
 Game.prototype.down = function() {
-  var currentBoard = arrayify(this.gameState);
+  var currentBoard = arrayify(this.boardState);
   var col0 = [];
   var col1 = [];
   var col2 = [];
@@ -165,11 +166,11 @@ Game.prototype.down = function() {
 
   newBoardArray[randI][randJ] = _.random(1,2);
 
-  this.gameState = stringify(newBoardArray);
+  this.boardState = stringify(newBoardArray);
 };
 
 Game.prototype.left = function(array) {
-  var currentBoard = arrayify(this.gameState);
+  var currentBoard = arrayify(this.boardState);
 
   currentBoard[0] = this.smash(currentBoard[0]);
   currentBoard[1] = this.smash(currentBoard[1]);
@@ -186,11 +187,11 @@ Game.prototype.left = function(array) {
 
   currentBoard[randI][randJ] = _.random(1,2);
 
-  this.gameState = stringify(currentBoard);
+  this.boardState = stringify(currentBoard);
 };
 
 Game.prototype.right = function(array) {
-  var currentBoard = arrayify(this.gameState);
+  var currentBoard = arrayify(this.boardState);
   currentBoard[0] = this.smash(currentBoard[0].reverse()).reverse();
   currentBoard[1] = this.smash(currentBoard[1].reverse()).reverse();
   currentBoard[2] = this.smash(currentBoard[2].reverse()).reverse();
@@ -206,11 +207,34 @@ Game.prototype.right = function(array) {
 
   currentBoard[randI][randJ] = _.random(1,2);
 
-  this.gameState = stringify(currentBoard);
+  this.boardState = stringify(currentBoard);
 };
 
-var g = new Game();
-// console.log(newGame.toString());
-// console.log(newGame.right());
-// console.log(newGame.toString());
-// console.log(newGame.smash([0,0,2,0]));
+Game.prototype.checkforWinner = function() {
+   if(this.boardState.indexOf('8') != -1) {
+    this.gameState = 1;
+   };
+}
+
+Game.prototype.checkforLoser = function() {
+  if(this.boardState.indexOf('0') == -1) {
+    var upCheck = new Game(this.boardState);
+    var downCheck = new Game(this.boardState);
+    var leftCheck = new Game(this.boardState);
+    var rightCheck = new Game(this.boardState);
+    upCheck.up();
+    downCheck.down();
+    leftCheck.left();
+    rightCheck.right();
+
+     if(upCheck.boardState() == this.boardState  && downCheck.boardState() == this.boardState && leftCheck.boardState() == this.boardState && rightCheck.boardState() == this.boardState) {
+      this.gameState = -1;
+     }
+
+  }
+}
+
+var newGame = new Game();
+console.log(newGame.toString());
+console.log(newGame.right());
+console.log(newGame.toString());
