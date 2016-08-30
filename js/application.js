@@ -7,7 +7,7 @@ var generateBoard = function() {
    for(var i = 0; i < 16; i++) {
     var val;
     if(parseInt(game.boardState[i]) == 0) {
-      val = "_"
+      val = ""
     } else {
       val = Math.pow(2, game.boardState[i]);
     };

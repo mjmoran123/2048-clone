@@ -6,11 +6,11 @@
     differences in how form elements appear between Firefox and IE
     See: http://necolas.github.com/normalize.css/
   -->
-  <!-- <link rel="stylesheet" href="/css/normalize.css"> -->
+  <link rel="stylesheet" href="css/normalize.css">
   <!--
     application.css is where you put your styles
   -->
-  <!-- <link rel="stylesheet" href="/css/application.css"> -->
+  <link rel="stylesheet" href="css/application.css">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script src="js/mousetrap.js"></script>
@@ -20,9 +20,10 @@
 
   <title>256!</title>
 </head>
-<body>
-  <h2 id="gameover">Test</h2>
-  <table>
+<body class="target">
+  <h1 style="text-align: center;">256</h1>
+  <h2 id="gameover" style="text-align: center;"></h2>
+  <table id="game_area">
     <tr>
       <td id="0"></td>
       <td id="1"></td>

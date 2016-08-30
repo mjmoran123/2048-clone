@@ -1,0 +1,27 @@
+* {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.target {
+  background-color: white;
+}
+#game_area {
+  margin: 0 auto;
+  padding: 5px;
+  width: 500px;
+}
+
+#game_area td {
+  width: 100px;
+  height: 100px;
+  border: 1px solid black;
+  float: left;
+  margin: 5px;
+  border-radius: 5px;
+  display: table;
+  text-align: center;
+  font-size: 2em;
+  padding-top: 30px;
+}
+
