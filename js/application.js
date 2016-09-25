@@ -11,8 +11,11 @@ var generateBoard = function() {
     } else {
       val = Math.pow(2, game.boardState[i]);
     };
-
-    $("#" + i.toString()).text(val);
+    var $current = $("#" + i.toString())
+    $current.removeClass();
+    var newClass = "class" + val;
+    $current.addClass(newClass);
+    $current.text(val);
   }
 };
 
